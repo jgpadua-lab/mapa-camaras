@@ -13,7 +13,7 @@ st.title("🧊 Mapeamento das Câmaras Frias")
 def carregar_dados():
     # Cole APENAS o ID do arquivo do Google Drive aqui
     # Exemplo: se o link é drive.google.com/file/d/1ABCDEFG/view, o ID é 1ABCDEFG
-    file_id = '117569599056327574395'
+    file_id = '1F_FT7Ygixc6ZBAqzZRy3l2iD7tNefFvM'
     url = f'https://drive.google.com/uc?id={file_id}'
 
     # Se o seu arquivo for CSV, troque read_excel por read_csv
