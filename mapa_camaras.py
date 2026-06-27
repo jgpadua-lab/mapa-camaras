@@ -18,7 +18,7 @@ st.markdown("Visualize as caixas ocupadas e livres em cada estante, no estilo 'm
 @st.cache_data(ttl=600)
 def carregar_dados():
     # COLOQUE O SEU ID DO GOOGLE DRIVE AQUI
-    arquivo_id = 'SEU_ID_AQUI'
+    arquivo_id = '1Tu4vtLzvvmMvraoaK9abSugQLEKvy-TGMwp9eK7YuWM'
     url = f'https://docs.google.com/spreadsheets/d/{arquivo_id}/export?format=xlsx'
 
     resposta = requests.get(url)
