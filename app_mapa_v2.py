@@ -12,7 +12,7 @@ st.title("📦 Mapa de Câmaras Frias - Sementes")
 @st.cache_data(ttl=600)
 def carregar_dados():
     # Coloque o seu ID aqui novamente
-    arquivo_id = 'COLOQUE_AQUI_O_ID_DO_SEU_ARQUIVO_DO_DRIVE'
+    arquivo_id = '1Tu4vtLzvvmMvraoaK9abSugQLEKvy-TGMwp9eK7YuWM'
     
     # O link precisa ter esse 'export=download' para forçar o Drive a baixar
     url = f'https://drive.google.com/uc?export=download&id={arquivo_id}'
