@@ -1,34 +1,39 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import requests
+from io import BytesIO
 
 # Configuração da página
 st.set_page_config(page_title="Mapa de Sementes", layout="wide")
 st.title("📦 Mapa de Câmaras Frias - Sementes")
 
-
 # 1. Função para carregar os dados
-# O ttl=600 faz o app reler o Google Drive a cada 10 minutos para pegar novos dados
 @st.cache_data(ttl=600)
 def carregar_dados():
-    # --- OPÇÃO A: LER ARQUIVO LOCAL (Para testar no seu computador) ---
-    ## df = pd.read_excel('caixas.xlsx')
-
-    # --- OPÇÃO B: LER DO GOOGLE DRIVE (Para usar na nuvem) ---
-    # Quando for publicar, apague o '#' das 3 linhas abaixo e coloque o seu arquivo_id
-    arquivo_id = '1Tu4vtLzvvmMvraoaK9abSugQLEKvy-TGMwp9eK7YuWM'
-    url = f'https://drive.google.com/uc?id={arquivo_id}'
-    df = pd.read_excel(url)
-
+    # Coloque o seu ID aqui novamente
+    arquivo_id = 'COLOQUE_AQUI_O_ID_DO_SEU_ARQUIVO_DO_DRIVE'
+    
+    # O link precisa ter esse 'export=download' para forçar o Drive a baixar
+    url = f'https://drive.google.com/uc?export=download&id={arquivo_id}'
+    
+    # Baixa o arquivo do Google Drive para a memória do servidor
+    resposta = requests.get(url)
+    
+    # Lê o arquivo Excel a partir da memória, forçando o uso do openpyxl
+    df = pd.read_excel(BytesIO(resposta.content), engine='openpyxl')
+    
     # Extrai a Câmara, Estante e Caixa do texto (ex: B[53][12])
     df[['Câmara', 'Estante', 'Caixa']] = df['Endereço'].str.extract(r'([A-Z])\[(\d+)\]\[(\d+)\]')
     df['Estante'] = df['Estante'].astype(int)
     df['Caixa'] = df['Caixa'].astype(int)
-
+    
     return df
 
-
 df = carregar_dados()
+
+# ... (Todo o resto do código para baixo continua EXATAMENTE igual) ...
+
 
 
 # 2. Função modular para desenhar UM mapa de uma estante específica
